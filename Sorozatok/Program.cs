@@ -37,7 +37,6 @@ namespace Sorozatok
                 $"A listában {adatok.Count(x=>x.Datum!="NI")} db vetítési dátummal rendelkező epizód van\n");
             double szazalek = (adatok.Count(x => x.Nezte == true));
             double eredmeny = szazalek / adatok.Count * 100;
-            Console.WriteLine(szazalek);
             Console.WriteLine($"3.feladat\n" +
                 $"A listában lévő epizódok {eredmeny:##.##}%-át látta\n");
             int masodperc = adatok.Where(x=>x.Nezte==true).Sum(x=>x.Perc*60);
