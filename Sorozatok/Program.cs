@@ -39,13 +39,9 @@ namespace Sorozatok
             double eredmeny = szazalek / adatok.Count * 100;
             Console.WriteLine($"3.feladat\n" +
                 $"A listában lévő epizódok {eredmeny:##.##}%-át látta\n");
-            int masodperc = adatok.Where(x=>x.Nezte==true).Sum(x=>x.Perc*60);
-            int ora = masodperc / 3600;
-            int nap = ora /24;
-            int orak = ora - nap * 24;
-            int maradekperc = (masodperc - (ora * 3600))/60;
+            TimeSpan ido = TimeSpan.FromSeconds(adatok.Where(x => x.Nezte == true).Sum(x => x.Perc * 60));
             Console.WriteLine($"4.feladat\n" +
-                $"Filmnézéssel {nap} napot, {orak} órát, és {maradekperc} percet töltött.\n"); 
+                $"Filmnézéssel {ido.Days} napot, {ido.Hours} órát, és {ido.Minutes} percet töltött.\n"); 
             Console.Write($"5.feladat\n" +
                 $"Adjon meg egy dátumot! Dátum= ");
             string dTemp = Console.ReadLine();
