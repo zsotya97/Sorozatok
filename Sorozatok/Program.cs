@@ -34,7 +34,7 @@ namespace Sorozatok
                 
             }
             Console.WriteLine($"2.feladat\n" +
-                $"A listában {adatok.Count(x=>x.Datum!="NI")} db vetítési dátummal rendelkező epizód van\n");
+                $"A listában {adatok.Count(x=>x.Datum!=new DateTime(1,1,1))} db vetítési dátummal rendelkező epizód van\n");
             double szazalek = (adatok.Count(x => x.Nezte == true));
             double eredmeny = szazalek / adatok.Count * 100;
             Console.WriteLine($"3.feladat\n" +
@@ -44,8 +44,8 @@ namespace Sorozatok
                 $"Filmnézéssel {ido.Days} napot, {ido.Hours} órát, és {ido.Minutes} percet töltött.\n"); 
             Console.Write($"5.feladat\n" +
                 $"Adjon meg egy dátumot! Dátum= ");
-            string dTemp = Console.ReadLine();
-            var datumos = adatok.Where(x => x.Datum == dTemp);
+            DateTime dTemp = DateTime.Parse(Console.ReadLine());
+            var datumos = adatok.Where(x => x.Datum <= dTemp&&x.Nezte==false&&x.Datum!=new DateTime(1,1,1));
             if (datumos.Count()==0) Console.WriteLine("Nem volt ilyen adat!!");
             else
             {
@@ -67,9 +67,8 @@ namespace Sorozatok
                 }
             }
 
-            var osszesitett = from x in adatok
-                              group x by x.Angol into lista
-                              select new { Film = lista.Key, ido = lista.Sum(x => x.Perc), Szama = lista.Count() };
+            var osszesitett = adatok.GroupBy(x => x.Angol).ToList()
+                .Select(x => new { Film = x.Key, ido = x.Sum(x=>x.Perc), Szama = x.Count() });
             StreamWriter ki = new StreamWriter("summa.txt", false);
             Console.WriteLine("\n8.feladat: Statisztika");
             foreach (var item in osszesitett)
