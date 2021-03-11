@@ -37,7 +37,7 @@ namespace Sorozatok
             double eredmeny = szazalek / adatok.Count * 100;
             Console.WriteLine($"3.feladat\n" +
                 $"A listában lévő epizódok {eredmeny:##.##}%-át látta\n");
-            TimeSpan ido = TimeSpan.FromSeconds(adatok.Where(x => x.Nezte == true).Sum(x => x.Perc * 60));
+            TimeSpan ido = TimeSpan.FromMinutes(adatok.Where(x => x.Nezte == true).Sum(x => x.Perc));
             Console.WriteLine($"4.feladat\n" +
                 $"Filmnézéssel {ido.Days} napot, {ido.Hours} órát, és {ido.Minutes} percet töltött.\n");
             Console.Write($"5.feladat\n" +
